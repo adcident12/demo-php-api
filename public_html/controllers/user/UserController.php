@@ -258,4 +258,36 @@ class UserController extends Controller
 
         return $this->result;
     }
+
+    /**
+     * @OA\Get(
+     *     path="/api/v1/me", tags={"Me"}, description="Select me",
+     *     @OA\Response(response="200", description="Success"),
+     *     @OA\Response(response="400", description="Bad request"),
+     *     security={{"bearerAuth":{}}}
+     * )
+     */
+
+    public function getMe()
+    {
+        $headers = apache_request_headers();
+
+        $this->result = null;
+
+        if (isset($headers["Authorization"])) {
+            $token = str_replace('Bearer ', '', $headers['Authorization']);
+            try {
+                $token = JWT::decode($token, new Key($this->key, 'HS256'));
+                $userModel = new UserModel($this->db);
+                $userModel->id = $token->user_id;
+                $this->result = $userModel->getById();
+            } catch (PDOException $e) {
+                $this->result = false;
+            }
+        } else {
+            $this->result = false;
+        }
+
+        return $this->result;
+    }
 }

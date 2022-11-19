@@ -44,6 +44,10 @@ $router->map('POST', '/api/v1/user/[i:id]/delete', function ($id) {
     require __DIR__ . '/api/user/delete.php';
 });
 
+$router->map('GET', '/api/v1/me', function () {
+    require __DIR__ . '/api/user/get_me.php';
+});
+
 $match = $router->match();
 
 if (is_array($match) && is_callable($match['target'])) {

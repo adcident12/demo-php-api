@@ -50,6 +50,10 @@ class AuthContoller extends Controller
             $stmt = $userModel->getByPhone();
             if ($stmt) {
                 $countRow = $stmt->rowCount();
+                $user_id = '';
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $user_id = $row['id'];
+                }
                 if ($countRow > 0) {
                     $iat = time();
                     $exp = $iat + 60 * 60;
@@ -57,7 +61,8 @@ class AuthContoller extends Controller
                         'iss' => 'http://localhost:9600/',
                         'aud' => 'http://localhost:9600/',
                         'iat' => $iat,
-                        'exp' => $exp
+                        'exp' => $exp,
+                        'user_id' => $user_id
                     ];
                     $jwt = JWT::encode($payload, $this->key, 'HS256');
                     $this->result = array(
