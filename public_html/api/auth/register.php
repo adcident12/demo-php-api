@@ -24,30 +24,30 @@ $authController->last_name = $data->last_name;
 $authController->phone = $data->phone;
 
 if ($data->first_name == "") {
-    http_response_code(200);
+    http_response_code(401);
     echo json_encode(
         array(
-            "code" => 204,
+            "code" => 401,
             "status" => "error",
             "title" => "Oops...",
             "message" => "You didn't enter your firstname. Please try again."
         )
     );
 } elseif ($data->last_name == "") {
-    http_response_code(200);
+    http_response_code(401);
     echo json_encode(
         array(
-            "code" => 204,
+            "code" => 401,
             "status" => "error",
             "title" => "Oops...",
             "message" => "You didn't enter your lastname. Please try again."
         )
     );
 } elseif ($data->phone == "") {
-    http_response_code(200);
+    http_response_code(401);
     echo json_encode(
         array(
-            "code" => 204,
+            "code" => 401,
             "status" => "error",
             "title" => "Oops...",
             "message" => "You didn't enter your phone. Please try again."
@@ -65,10 +65,10 @@ if ($data->first_name == "") {
             )
         );
     } else {
-        http_response_code(200);
+        http_response_code(401);
         echo json_encode(
             array(
-                "code" => 400,
+                "code" => 401,
                 "status" => "error",
                 "title" => "Oops...",
                 "message" => "You was not register successfully. Please try again."

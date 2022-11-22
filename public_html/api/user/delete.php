@@ -20,10 +20,10 @@ $data = json_decode($data);
 $userController->id = $data->id;
 
 if ($data->id == "") {
-    http_response_code(200);
+    http_response_code(401);
     echo json_encode(
         array(
-            "code" => 204,
+            "code" => 401,
             "status" => "error",
             "title" => "Oops...",
             "message" => "You didn't enter your id. Please try again."
@@ -41,10 +41,10 @@ if ($data->id == "") {
             )
         );
     } else {
-        http_response_code(200);
+        http_response_code(401);
         echo json_encode(
             array(
-                "code" => 400,
+                "code" => 401,
                 "status" => "error",
                 "title" => "Oops...",
                 "message" => "You was not delete successfully. Please try again."

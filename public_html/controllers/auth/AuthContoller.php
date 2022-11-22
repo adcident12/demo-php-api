@@ -26,7 +26,7 @@ class AuthContoller extends Controller
     }
 
     /**
-     * @OA\Post(path="/api/v1/auth", tags={"Authorization"}, description="Get token",
+     * @OA\Post(path="/api/v1/login", tags={"Authorization"}, description="Get token",
      * @OA\RequestBody(
      *  @OA\MediaType(
      *      mediaType="multipart/form-data",

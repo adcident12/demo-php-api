@@ -15,7 +15,7 @@ class UserModel
     public function getAll()
     {
         try {
-            $query = "SELECT first_name, last_name FROM " . $this->table . " ORDER BY id DESC";
+            $query = "SELECT id, first_name, last_name, phone FROM " . $this->table . " ORDER BY id DESC";
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
             return $stmt;
@@ -59,8 +59,10 @@ class UserModel
             $stmt->bindParam(":last_name", $this->last_name);
             $stmt->bindParam(":phone", $this->phone);
             if ($stmt->execute()) {
+                $stmt_last_id = $this->conn->query("SELECT LAST_INSERT_ID()");
+                $lastId = $stmt_last_id->fetchColumn();
                 if ($stmt->rowCount()) {
-                    return true;
+                    return $lastId;
                 } else {
                     return false;
                 }

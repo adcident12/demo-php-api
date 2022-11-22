@@ -24,51 +24,54 @@ $userController->last_name = $data->last_name;
 $userController->phone = $data->phone;
 
 if ($data->first_name == "") {
-    http_response_code(200);
+    http_response_code(401);
     echo json_encode(
         array(
-            "code" => 204,
+            "code" => 401,
             "status" => "error",
             "title" => "Oops...",
             "message" => "You didn't enter your firstname. Please try again."
         )
     );
 } elseif ($data->last_name == "") {
-    http_response_code(200);
+    http_response_code(401);
     echo json_encode(
         array(
-            "code" => 204,
+            "code" => 401,
             "status" => "error",
             "title" => "Oops...",
             "message" => "You didn't enter your lastname. Please try again."
         )
     );
 } elseif ($data->phone == "") {
-    http_response_code(200);
+    http_response_code(401);
     echo json_encode(
         array(
-            "code" => 204,
+            "code" => 401,
             "status" => "error",
             "title" => "Oops...",
             "message" => "You didn't enter your phone. Please try again."
         )
     );
 } else {
-    if ($userController->createUser()) {
+    if ($rs = $userController->createUser()) {
         http_response_code(200);
         echo json_encode(
             array(
                 "code" => 200,
+                "respones" => array(
+                    "id" => $rs
+                ),
                 "status" => "success",
                 "title" => "Good job!",
                 "message" => "You was create successfully."
             )
         );
     } else {
-        http_response_code(200);
+        http_response_code(401);
         echo json_encode(
             array(
-                "code" => 400,
+                "code" => 401,
                 "status" => "error",
                 "title" => "Oops...",
                 "message" => "You was not create successfully. Please try again."
