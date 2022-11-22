@@ -53,5 +53,3 @@ if ($data->phone == "") {
         );
     }
 }
-
-exit();
